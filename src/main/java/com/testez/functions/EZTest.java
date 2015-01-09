@@ -5,5 +5,5 @@ package com.testez.functions;
  * @since 1/8/2015
  */
 public interface EZTest extends LambdaTest {
-    public abstract void test();
+    public abstract void test() throws Exception;
 }

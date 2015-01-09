@@ -2,6 +2,7 @@ package com.testez.internal;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
+import com.google.common.base.MoreObjects;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -19,21 +20,21 @@ public class CommandLineOptions {
             description = "A test class or classes to load. (comma separated)",
             variableArity = true
     )
-    private List<String> classes = new ArrayList<>();
+    private List<String> classes;
 
     @Parameter(
             names = {"-package", "-packages"},
             description = "A package or packages to recursively load all containing classes. (comma separated)",
             variableArity = true
     )
-    private List<String> packages = new ArrayList<>();
+    private List<String> packages;
 
     @Parameter(
             names = "-json",
             description = "A json suite descriptor file",
             variableArity = true
     )
-    private List<String> suites = new ArrayList<>();
+    private List<String> suites;
 
     @Parameter(
             names = {"-help", "--help", "/?"},
@@ -44,21 +45,30 @@ public class CommandLineOptions {
 
     @NotNull
     public List<String> getClasses() {
-        return classes;
+        return (classes == null) ? new ArrayList<>(0) : classes;
     }
 
     @NotNull
     public List<String> getPackages() {
-        //TODO: save this for later(packages.parallelStream().flatMap(Arrays::stream).toArray(Class[]::new);)
-        return packages;
+        return (packages == null) ? new ArrayList<>(0) : packages;
     }
 
     @NotNull
     public List<String> getSuites() {
-        return suites;
+        return (suites == null) ? new ArrayList<>(0) : suites;
     }
 
     public boolean isHelp() {
         return help;
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .omitNullValues()
+                .add("classes", classes)
+                .add("packages", packages)
+                .add("suites", suites)
+                .toString();
     }
 }

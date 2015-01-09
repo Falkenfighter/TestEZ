@@ -1,5 +1,6 @@
 package com.testez.internal;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.reflect.ClassPath;
 import com.testez.annotations.Test;
 import com.testez.functions.LambdaTest;
@@ -17,7 +18,10 @@ import java.util.Objects;
  * @author Justin Graham <Justin.af.graham@gmail.com>
  * @since 12/30/2014
  */
-public class ClassHelper {
+public final class ClassHelper {
+
+    @VisibleForTesting
+    protected ClassHelper() {}
 
     /**
      * Converts {@link java.lang.Class[]} into {@link TestEZClass[]}

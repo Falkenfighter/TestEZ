@@ -23,13 +23,13 @@ public class TestEZField implements RunnableTest {
 
     @Override
     public void run(Object o) {
-        Class<?> fieldType = field.getType().getClass();
-        field.setAccessible(true);
-        if (fieldType.isInstance(EZTest.class)) {
+        Class<?> fieldType = field.getType();
+        if (fieldType == EZTest.class) {
+            field.setAccessible(true);
             try {
                 ((EZTest) field.get(o)).test();
             } catch (Exception e) {
-                e.printStackTrace();
+                // TODO: Handle exception
             }
         }
     }

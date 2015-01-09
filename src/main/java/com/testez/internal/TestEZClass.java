@@ -21,9 +21,8 @@ public class TestEZClass {
     @NotNull private final Annotation[] annotations;
     @NotNull private final Constructor<?>[] constructors;
     @NotNull private final TestEZField[] allFields;
-    @NotNull private final TestEZField[] testFields;
     @NotNull private final TestEZMethod[] allMethods;
-    @NotNull private final TestEZMethod[] testMethods;
+    @NotNull private final RunnableTest[] tests;
     private final boolean testClass;
 
     public TestEZClass(@NotNull final Class<?> clazz) {
@@ -33,11 +32,14 @@ public class TestEZClass {
         this.constructors = clazz.getDeclaredConstructors();
         this.allFields = this.buildTestEZFields(clazz);
         this.allMethods = this.buildTestEZMethods(clazz);
-        this.testFields = this.findActualTestFields(this.allFields);
-
         boolean classHasTestAnnotation = ClassHelper.isTestElement(clazz);
-        this.testMethods = this.findActualTestMethods(this.allMethods, classHasTestAnnotation);
-        this.testClass = testMethods.length > 0 || classHasTestAnnotation;
+
+        this.tests = Stream.concat(
+                Arrays.asList(this.findActualTestFields(this.allFields)).stream(),
+                Arrays.asList(this.findActualTestMethods(this.allMethods, classHasTestAnnotation)).stream()
+        ).toArray(RunnableTest[]::new);
+
+        this.testClass = tests.length > 0;
     }
 
     public boolean isTestClass() {
@@ -47,11 +49,9 @@ public class TestEZClass {
     public void run() {
         try {
             Object o = clazz.newInstance();
-            Stream.concat(Arrays.stream(testFields), Arrays.stream(testMethods))
-                    .forEach((RunnableTest rt) -> rt.run(o));
-            Arrays.stream(testMethods).forEach(tm -> tm.run(o));
+            Arrays.stream(tests).forEach(tm -> tm.run(o));
         } catch (Exception e) {
-            e.printStackTrace();
+            // TODO: Handle exception
         }
     }
 

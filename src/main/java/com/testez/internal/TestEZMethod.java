@@ -42,7 +42,7 @@ public class TestEZMethod implements RunnableTest {
         try {
             method.invoke(o);
         } catch (Exception e) {
-            e.printStackTrace();
+            // TODO: Handle exception
         }
     }
 }

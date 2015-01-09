@@ -5,6 +5,6 @@ package com.testez.functions;
  * @since 1/8/2015
  */
 @FunctionalInterface
-public interface ParametrizedTest extends LambdaTest {
+public interface EZParametrizedTest extends LambdaTest {
     public void test(Object... o);
 }
