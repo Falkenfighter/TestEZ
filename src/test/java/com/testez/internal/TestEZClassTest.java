@@ -9,8 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @since 1/9/2015
  */
 public class TestEZClassTest {
-    public class EmptyClass {
-    }
+    public class EmptyClass {}
 
     TestEZClass testClass;
 

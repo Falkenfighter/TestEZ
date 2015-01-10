@@ -17,7 +17,7 @@ public class TestEZMethodTest {
 
     EZTest testIsPublic = () -> assertThat(method.isPublic()).isTrue();
 
-    EZTest testHasTestAnnotation = () -> assertThat(method.hasTestAnnotation()).isFalse();
+    EZTest testIsTest = () -> assertThat(method.isTest()).isFalse();
 
     EZTest testRun = () -> method.run(new TestEZMethodTest());
 

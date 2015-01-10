@@ -4,13 +4,16 @@ import com.beust.jcommander.JCommander;
 import com.testez.internal.CommandLineOptions;
 import com.testez.internal.RunResult;
 import com.testez.internal.TestEZClass;
+import com.testez.internal.TestResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import static com.testez.internal.ClassHelper.*;
+import static java.util.stream.Collectors.toList;
 
 /**
  * @author Justin Graham <Justin.af.graham@gmail.com>
@@ -52,7 +55,7 @@ public class TestEZ {
     }
 
     public RunResult run() {
-        Arrays.stream(testClasses).forEach(TestEZClass::run);
+        Arrays.stream(testClasses).map(TestEZClass::run).flatMap(Arrays::stream).forEach(System.out::println);
         return null;
     }
 }

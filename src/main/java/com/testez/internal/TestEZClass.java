@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 /**
@@ -46,12 +47,13 @@ public class TestEZClass {
         return testClass;
     }
 
-    public void run() {
+    public TestResult[] run() {
         try {
             Object o = clazz.newInstance();
-            Arrays.stream(tests).forEach(tm -> tm.run(o));
+            return Arrays.stream(tests).map(tm -> tm.run(o)).filter(Objects::nonNull).toArray(TestResult[]::new);
         } catch (Exception e) {
             // TODO: Handle exception
+            return null;
         }
     }
 
@@ -89,7 +91,7 @@ public class TestEZClass {
     protected TestEZMethod[] findActualTestMethods(@NotNull TestEZMethod[] allClassMethods,
                                                    boolean classHasTestAnnotation) {
         return Arrays.stream(allClassMethods)
-                .filter(method -> (classHasTestAnnotation && method.isPublic()) || method.hasTestAnnotation())
+                .filter(method -> (classHasTestAnnotation && method.isPublic()) || method.isTest())
                 .toArray(TestEZMethod[]::new);
     }
 
@@ -110,6 +112,6 @@ public class TestEZClass {
     @VisibleForTesting
     @Contract("null -> fail")
     protected TestEZField[] findActualTestFields(TestEZField[] allFields) {
-        return Arrays.stream(allFields).filter(TestEZField::isTestField).toArray(TestEZField[]::new);
+        return Arrays.stream(allFields).filter(TestEZField::isTest).toArray(TestEZField[]::new);
     }
 }

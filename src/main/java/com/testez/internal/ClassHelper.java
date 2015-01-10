@@ -100,7 +100,7 @@ public final class ClassHelper {
     public static boolean isTestElement(@NotNull AnnotatedElement element) {
         return element.isAnnotationPresent(Test.class) ||
                 element instanceof Field &&
-                        ((Field) element).getType().getClass().isInstance(LambdaTest.class);
+                        LambdaTest.class.isAssignableFrom(((Field)element).getType());
     }
 
     private static ClassLoader getLoader() {
