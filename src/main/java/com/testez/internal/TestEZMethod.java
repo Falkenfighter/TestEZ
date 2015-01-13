@@ -2,7 +2,6 @@ package com.testez.internal;
 
 import com.google.common.base.Stopwatch;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -36,14 +35,17 @@ public class TestEZMethod extends RunnableTest {
 
     @Override
     public TestResult run(Object o) {
-        boolean passed = false;
         Stopwatch timer = Stopwatch.createStarted();
+        Exception caughtException = null;
+
         try {
             method.invoke(o);
-            passed = true;
         } catch (Exception e) {
-            // TODO: Handle exception
+            caughtException = e;
         }
-        return new TestResult(method.getName(), passed, timer.stop());
+
+        return new TestResultBuilder(
+                method.getName(), o.getClass(), timer.stop(), caughtException, getExpectedExceptions()
+        ).getTestResult();
     }
 }

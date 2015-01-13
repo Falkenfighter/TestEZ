@@ -103,6 +103,18 @@ public final class ClassHelper {
                         LambdaTest.class.isAssignableFrom(((Field)element).getType());
     }
 
+    /**
+     * Returns the {@link com.testez.annotations.Test} annotation on the supplied element if it exists else returns
+     * null
+     *
+     * @param element the element to get the {@link com.testez.annotations.Test} annotation from
+     * @return {@link com.testez.annotations.Test} annotation or null if the annotation does not exist
+     */
+    @Nullable
+    public static Test getTestAnnotation(@NotNull AnnotatedElement element) {
+        return (element.isAnnotationPresent(Test.class)) ? element.getAnnotation(Test.class) : null;
+    }
+
     private static ClassLoader getLoader() {
         return Thread.currentThread().getContextClassLoader();
     }

@@ -1,5 +1,6 @@
 package com.testez.internal;
 
+import com.testez.annotations.Test;
 import com.testez.functions.EZTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -21,6 +22,9 @@ public class TestEZMethodTest {
 
     EZTest testRun = () -> method.run(new TestEZMethodTest());
 
-    EZTest testRunError = () -> method.run(null);
+    @Test(shouldThrow = NullPointerException.class)
+    EZTest testRunError = () -> {
+        method.run(null);
+    };
 
 }

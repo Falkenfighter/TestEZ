@@ -53,6 +53,8 @@ public class TestEZClass {
             return Arrays.stream(tests).map(tm -> tm.run(o)).filter(Objects::nonNull).toArray(TestResult[]::new);
         } catch (Exception e) {
             // TODO: Handle exception
+            System.out.println("EZClass ERROR:");
+            e.printStackTrace();
             return null;
         }
     }

@@ -10,10 +10,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 import static com.testez.internal.ClassHelper.*;
-import static java.util.stream.Collectors.toList;
 
 /**
  * @author Justin Graham <Justin.af.graham@gmail.com>
@@ -55,7 +53,9 @@ public class TestEZ {
     }
 
     public RunResult run() {
-        Arrays.stream(testClasses).map(TestEZClass::run).flatMap(Arrays::stream).forEach(System.out::println);
+        TestResult[] results = Arrays.stream(testClasses).map(TestEZClass::run).flatMap(Arrays::stream).toArray(TestResult[]::new);
+        Arrays.stream(results).forEach(System.out::println);
+        System.out.println(new RunResult(results).toString());
         return null;
     }
 }
