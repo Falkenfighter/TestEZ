@@ -1,6 +1,9 @@
-package com.testez.internal;
+package com.testez.internal.method;
 
 import com.google.common.base.Stopwatch;
+import com.testez.internal.RunnableTest;
+import com.testez.internal.report.RunnableResult;
+import com.testez.internal.report.RunnableResultBuilder;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.annotation.Annotation;
@@ -11,7 +14,7 @@ import java.lang.reflect.Modifier;
  * @author Justin Graham <Justin.af.graham@gmail.com>
  * @since 1/7/2015
  */
-public class TestEZMethod extends RunnableTest {
+public class EZMethod extends RunnableTest {
     @NotNull private final Method method;
     @NotNull private final Class<?> clazz;
     @NotNull private final String name;
@@ -19,7 +22,7 @@ public class TestEZMethod extends RunnableTest {
     @NotNull private final Class<?>[] parameters;
     @NotNull private final Annotation[] annotations;
 
-    public TestEZMethod(@NotNull final Method method) {
+    public EZMethod(@NotNull final Method method) {
         super(method);
         this.method = method;
         this.clazz = method.getDeclaringClass();
@@ -34,7 +37,7 @@ public class TestEZMethod extends RunnableTest {
     }
 
     @Override
-    public TestResult run(Object o) {
+    public RunnableResult run(Object o) {
         Stopwatch timer = Stopwatch.createStarted();
         Exception caughtException = null;
 
@@ -44,7 +47,7 @@ public class TestEZMethod extends RunnableTest {
             caughtException = e;
         }
 
-        return new TestResultBuilder(
+        return new RunnableResultBuilder(
                 method.getName(), o.getClass(), timer.stop(), caughtException, getExpectedExceptions()
         ).getTestResult();
     }

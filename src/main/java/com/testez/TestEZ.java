@@ -1,17 +1,17 @@
 package com.testez;
 
 import com.beust.jcommander.JCommander;
-import com.testez.internal.CommandLineOptions;
-import com.testez.internal.RunResult;
-import com.testez.internal.TestEZClass;
-import com.testez.internal.TestResult;
+import com.testez.internal.clazz.EZClass;
+import com.testez.internal.exception.TestEZException;
+import com.testez.internal.report.RunResult;
+import com.testez.internal.report.RunnableResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static com.testez.internal.ClassHelper.*;
+import static com.testez.internal.clazz.ClassHelper.*;
 
 /**
  * @author Justin Graham <Justin.af.graham@gmail.com>
@@ -20,10 +20,10 @@ import static com.testez.internal.ClassHelper.*;
 public class TestEZ {
     private static final Logger logger = LoggerFactory.getLogger(TestEZ.class);
 
-    private final TestEZClass[] allClasses;
-    private final TestEZClass[] testClasses;
+    private final EZClass[] allClasses;
+    private final EZClass[] testClasses;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         CommandLineOptions clo = new CommandLineOptions();
         JCommander commander = new JCommander(clo, args);
         logger.info("Initializing TestEZ with {}", clo.toString());
@@ -35,7 +35,14 @@ public class TestEZ {
         }
 
         TestEZ testEZ = new TestEZ(clo);
-        testEZ.run();
+        RunResult result = testEZ.run();
+
+        // TODO: Better reporting...
+        if (result.getFailedTests().length > 0) {
+            throw new TestEZException(result.toString());
+        } else {
+            logger.info(result.toString());
+        }
     }
 
     public TestEZ(CommandLineOptions clo) {
@@ -49,13 +56,12 @@ public class TestEZ {
         }
 
         allClasses = loadTestEZClasses(getClasses(classes), getClassesByPackages(packages));
-        testClasses = Arrays.stream(allClasses).filter(TestEZClass::isTestClass).toArray(TestEZClass[]::new);
+        testClasses = Arrays.stream(allClasses).filter(EZClass::isTestClass).toArray(EZClass[]::new);
     }
 
     public RunResult run() {
-        TestResult[] results = Arrays.stream(testClasses).map(TestEZClass::run).flatMap(Arrays::stream).toArray(TestResult[]::new);
-        Arrays.stream(results).forEach(System.out::println);
-        System.out.println(new RunResult(results).toString());
-        return null;
+        RunnableResult[] results = Arrays.stream(testClasses)
+                .map(EZClass::run).flatMap(Arrays::stream).toArray(RunnableResult[]::new);
+        return new RunResult(results);
     }
 }

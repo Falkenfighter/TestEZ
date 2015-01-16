@@ -1,9 +1,10 @@
-package com.testez.internal;
+package com.testez.internal.clazz;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.reflect.ClassPath;
-import com.testez.annotations.Test;
-import com.testez.functions.LambdaTest;
+import com.testez.annotations.*;
+import com.testez.functions.Helper;
+import com.testez.functions.FieldTest;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -21,18 +22,19 @@ import java.util.Objects;
 public final class ClassHelper {
 
     @VisibleForTesting
-    protected ClassHelper() {}
+    protected ClassHelper() {
+    }
 
     /**
-     * Converts {@link java.lang.Class[]} into {@link TestEZClass[]}
+     * Converts {@link java.lang.Class[]} into {@link EZClass[]}
      *
      * @param classes the {@link java.lang.Class[]} to convert
-     * @return the {@link java.lang.Class[]} converted into {@link TestEZClass[]}
+     * @return the {@link java.lang.Class[]} converted into {@link EZClass[]}
      */
     @NotNull
-    public static TestEZClass[] loadTestEZClasses(@NotNull Class<?>[]... classes) {
-        return Arrays.stream(classes).flatMap(Arrays::stream).filter(Objects::nonNull).map(TestEZClass::new).toArray(
-                TestEZClass[]::new);
+    public static EZClass[] loadTestEZClasses(@NotNull Class<?>[]... classes) {
+        return Arrays.stream(classes).flatMap(Arrays::stream).filter(Objects::nonNull).map(EZClass::new).toArray(
+                EZClass[]::new);
     }
 
     /**
@@ -92,7 +94,7 @@ public final class ClassHelper {
 
     /**
      * Checks if the provided {@link java.lang.reflect.AnnotatedElement} contains the
-     * {@link com.testez.annotations.Test} annotation or is an instance of {@link com.testez.functions.LambdaTest}
+     * {@link com.testez.annotations.Test} annotation or is an instance of {@link com.testez.functions.FieldTest}
      *
      * @param element the element to check
      * @return true if class has {@link com.testez.annotations.Test} annotation
@@ -100,7 +102,26 @@ public final class ClassHelper {
     public static boolean isTestElement(@NotNull AnnotatedElement element) {
         return element.isAnnotationPresent(Test.class) ||
                 element instanceof Field &&
-                        LambdaTest.class.isAssignableFrom(((Field)element).getType());
+                        FieldTest.class.isAssignableFrom(((Field) element).getType());
+    }
+
+    // TODO: check if has before annotation
+    public static boolean isHelperElement(@NotNull AnnotatedElement element) {
+        return element instanceof Field && Helper.class.isAssignableFrom(((Field) element).getType());
+    }
+
+    public static boolean isBeforeElement(@NotNull AnnotatedElement element) {
+        return (element.isAnnotationPresent(BeforeAll.class)
+                || element.isAnnotationPresent(BeforeEach.class)
+                || element.isAnnotationPresent(BeforeTests.class)) ||
+                isHelperElement(element);
+    }
+
+    public static boolean isAfterElement(@NotNull AnnotatedElement element) {
+        return (element.isAnnotationPresent(AfterAll.class)
+                || element.isAnnotationPresent(AfterEach.class)
+                || element.isAnnotationPresent(AfterTests.class)) ||
+                isHelperElement(element);
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.testez.internal;
+package com.testez;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;

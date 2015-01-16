@@ -2,6 +2,7 @@ package com.testez.internal;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.testez.annotations.Test;
+import com.testez.internal.clazz.ClassHelper;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.AnnotatedElement;
@@ -10,7 +11,7 @@ import java.lang.reflect.AnnotatedElement;
  * @author Justin Graham <Justin.af.graham@gmail.com>
  * @since 1/8/2015
  */
-public abstract class RunnableTest {
+public abstract class RunnableTest implements RunnableInstance {
     private final boolean isTest;
     private final Test testAnnotation;
 
@@ -18,8 +19,6 @@ public abstract class RunnableTest {
         isTest = ClassHelper.isTestElement(element);
         testAnnotation = ClassHelper.getTestAnnotation(element);
     }
-
-    public abstract TestResult run(Object o);
 
     @NotNull
     @VisibleForTesting

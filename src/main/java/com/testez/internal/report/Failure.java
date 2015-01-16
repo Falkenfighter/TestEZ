@@ -1,4 +1,4 @@
-package com.testez.internal;
+package com.testez.internal.report;
 
 /**
  * @author Justin Graham <Justin.af.graham@gmail.com>

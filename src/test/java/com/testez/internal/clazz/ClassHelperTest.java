@@ -1,14 +1,14 @@
-package com.testez.internal;
+package com.testez.internal.clazz;
 
 import com.google.common.reflect.ClassPath;
-import com.testez.functions.EZTest;
+import com.testez.functions.Unit;
 import mockit.Mock;
 import mockit.MockUp;
 
 import java.io.IOException;
 import java.util.Arrays;
 
-import static com.testez.internal.ClassHelper.*;
+import static com.testez.internal.clazz.ClassHelper.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -17,27 +17,27 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class ClassHelperTest {
 
-    private final String internalPackagePath = "com.testez.internal";
+    private final String internalPackagePath = "com.testez.internal.clazz";
     private final String classHelperTestPath = internalPackagePath + ".ClassHelperTest";
 
-    EZTest testConstructor = ClassHelper::new;
+    Unit testConstructor = ClassHelper::new;
 
-    EZTest testLoadTestEZClasses = () ->
+    Unit testLoadTestEZClasses = () ->
             assertThat(loadTestEZClasses(new Class[]{ClassHelperTest.class})).hasSize(1);
 
-    EZTest testGetClassesByClassName = () ->
+    Unit testGetClassesByClassName = () ->
             assertThat(getClasses(Arrays.asList(classHelperTestPath))).hasSize(1);
 
-    EZTest testGetClassesByPackages = () ->
+    Unit testGetClassesByPackages = () ->
             assertThat(getClassesByPackages(Arrays.asList(internalPackagePath))).isNotEmpty();
 
-    EZTest testGetClassesByPackage = () ->
+    Unit testGetClassesByPackage = () ->
             assertThat(getClasses(internalPackagePath)).isNotEmpty();
 
-    EZTest testGetClassesByPackageUnknownPackage = () ->
+    Unit testGetClassesByPackageUnknownPackage = () ->
             assertThat(getClasses(internalPackagePath + ".unknown")).isEmpty();
 
-    EZTest testGetClassesByPackageIOException = () -> {
+    Unit testGetClassesByPackageIOException = () -> {
         new MockUp<ClassPath>() {
             @Mock
             public ClassPath from(ClassLoader loader) throws IOException {
@@ -47,12 +47,12 @@ public class ClassHelperTest {
         assertThat(getClasses(internalPackagePath)).isEmpty();
     };
 
-    EZTest testGetClass = () ->
+    Unit testGetClass = () ->
             assertThat(ClassHelper.getClass(classHelperTestPath)).isEqualTo(ClassHelperTest.class);
 
-    EZTest testGetClassNotFound = () ->
+    Unit testGetClassNotFound = () ->
             assertThat(ClassHelper.getClass(internalPackagePath + ".UnknownClass")).isNull();
 
-    EZTest testIsTestElement = () ->
+    Unit testIsTestElement = () ->
             assertThat(isTestElement(ClassHelper.class)).isFalse();
 }
