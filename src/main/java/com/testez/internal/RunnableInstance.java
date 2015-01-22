@@ -1,11 +1,11 @@
 package com.testez.internal;
 
-import com.testez.internal.report.RunnableResult;
+import com.testez.internal.report.MemberResult;
 
 /**
  * @author Justin Graham <Justin.af.graham@gmail.com>
  * @since 1/14/2015
  */
 public interface RunnableInstance {
-    public RunnableResult run(Object instance);
+    public MemberResult run(Object instance);
 }

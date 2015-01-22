@@ -12,22 +12,22 @@ import static com.testez.internal.report.Failure.*;
  * @author Justin Graham <Justin.af.graham@gmail.com>
  * @since 1/12/2015
  */
-public class RunnableResultBuilder {
-    private final RunnableResult result;
+public class MemberResultBuilder {
+    private final MemberResult result;
 
     @Nullable private final Throwable caught;
     @NotNull private final Class<? extends Throwable>[] expectedExceptions;
 
-    public RunnableResultBuilder(@NotNull String name, @NotNull Class clazz, @NotNull Stopwatch timer,
-                                 @Nullable Throwable caught,
-                                 @NotNull Class<? extends Throwable>[] expectedExceptions) {
-        this.result = new RunnableResult(name).setClazz(clazz).setTime(timer);
+    public MemberResultBuilder(@NotNull String name, @NotNull Class clazz, @NotNull Stopwatch timer,
+                               @Nullable Throwable caught,
+                               @NotNull Class<? extends Throwable>[] expectedExceptions) {
+        this.result = new MemberResult(name).setClazz(clazz).setTime(timer);
         this.caught = caught;
         this.expectedExceptions = expectedExceptions;
     }
 
     @NotNull
-    public RunnableResult getTestResult() {
+    public MemberResult getTestResult() {
         // If the test expected an exception but one was not thrown
         if (expectedExceptions.length > 0 && caught == null) {
             return result.setPassed(false).setCause(String.format(MISSING_EXCEPTION.getMessage(),

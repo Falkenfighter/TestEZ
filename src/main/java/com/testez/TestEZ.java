@@ -3,8 +3,9 @@ package com.testez;
 import com.beust.jcommander.JCommander;
 import com.testez.internal.clazz.EZClass;
 import com.testez.internal.exception.TestEZException;
+import com.testez.internal.report.ClassResult;
 import com.testez.internal.report.RunResult;
-import com.testez.internal.report.RunnableResult;
+import com.testez.internal.report.MemberResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,8 +61,11 @@ public class TestEZ {
     }
 
     public RunResult run() {
-        RunnableResult[] results = Arrays.stream(testClasses)
-                .map(EZClass::run).flatMap(Arrays::stream).toArray(RunnableResult[]::new);
+        MemberResult[] results = Arrays.stream(testClasses)
+                .map(EZClass::run)
+                .map(ClassResult::getMemberResults)
+                .flatMap(Arrays::stream)
+                .toArray(MemberResult[]::new);
         return new RunResult(results);
     }
 }

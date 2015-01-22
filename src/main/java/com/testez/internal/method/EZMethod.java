@@ -2,8 +2,8 @@ package com.testez.internal.method;
 
 import com.google.common.base.Stopwatch;
 import com.testez.internal.RunnableTest;
-import com.testez.internal.report.RunnableResult;
-import com.testez.internal.report.RunnableResultBuilder;
+import com.testez.internal.report.MemberResult;
+import com.testez.internal.report.MemberResultBuilder;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.annotation.Annotation;
@@ -37,7 +37,7 @@ public class EZMethod extends RunnableTest {
     }
 
     @Override
-    public RunnableResult run(Object o) {
+    public MemberResult run(Object o) {
         Stopwatch timer = Stopwatch.createStarted();
         Exception caughtException = null;
 
@@ -47,7 +47,7 @@ public class EZMethod extends RunnableTest {
             caughtException = e;
         }
 
-        return new RunnableResultBuilder(
+        return new MemberResultBuilder(
                 method.getName(), o.getClass(), timer.stop(), caughtException, getExpectedExceptions()
         ).getTestResult();
     }

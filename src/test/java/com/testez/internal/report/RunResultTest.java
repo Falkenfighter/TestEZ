@@ -1,8 +1,6 @@
 package com.testez.internal.report;
 
 import com.testez.functions.Unit;
-import com.testez.internal.report.RunResult;
-import com.testez.internal.report.RunnableResult;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -13,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class RunResultTest {
     private RunResult result;
 
-    Unit testConstructor = () -> result = new RunResult(new RunnableResult[0]);
+    Unit testConstructor = () -> result = new RunResult(new MemberResult[0]);
 
     Unit testGetFailedTests = () -> assertThat(result.getFailedTests()).isEmpty();
 

@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Justin Graham <Justin.af.graham@gmail.com>
  * @since 1/9/2015
  */
-public class TestEZFieldTest {
+public class EZFieldTest {
     public class FakeClass {
         @Test(shouldThrow = {Exception.class})
         Unit failingTest = () -> { throw new Exception(); };

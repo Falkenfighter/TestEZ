@@ -2,7 +2,6 @@ package com.testez.internal.report;
 
 import com.google.common.base.Stopwatch;
 import com.testez.functions.Unit;
-import com.testez.internal.report.RunnableResult;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -18,10 +17,10 @@ public class RunnableResultTest {
     private final Stopwatch timer = Stopwatch.createUnstarted();
     private final String cause = "cause";
 
-    private RunnableResult result;
+    private MemberResult result;
 
-    Unit testConstructor = () -> result = new RunnableResult(name);
-    Unit testConstructor2 = () -> new RunnableResult(name, clazz, passed, timer, cause);
+    Unit testConstructor = () -> result = new MemberResult(name);
+    Unit testConstructor2 = () -> new MemberResult(name, clazz, passed, timer, cause);
 
     Unit testSetClazz = () -> result.setClazz(clazz);
     Unit testSetPassed = () -> result.setPassed(passed);

@@ -11,21 +11,21 @@ import java.util.stream.Collectors;
  */
 public class RunResult {
 
-    private final RunnableResult[] allTests;
-    private final RunnableResult[] failedTests;
-    private final RunnableResult[] passedTests;
+    private final MemberResult[] allTests;
+    private final MemberResult[] failedTests;
+    private final MemberResult[] passedTests;
 
-    public RunResult(RunnableResult[] results) {
+    public RunResult(MemberResult[] results) {
         this.allTests = results;
-        this.passedTests = Arrays.stream(results).filter(RunnableResult::isPassed).toArray(RunnableResult[]::new);
-        this.failedTests = Arrays.stream(results).filter(tr -> !tr.isPassed()).toArray(RunnableResult[]::new);
+        this.passedTests = Arrays.stream(results).filter(MemberResult::isPassed).toArray(MemberResult[]::new);
+        this.failedTests = Arrays.stream(results).filter(tr -> !tr.isPassed()).toArray(MemberResult[]::new);
     }
 
-    public RunnableResult[] getFailedTests() {
+    public MemberResult[] getFailedTests() {
         return failedTests;
     }
 
-    public RunnableResult[] getPassedTests() {
+    public MemberResult[] getPassedTests() {
         return passedTests;
     }
 
@@ -35,7 +35,7 @@ public class RunResult {
         String header = "========================== TestEZ ==========================";
         String result = Strings.padStart(output, output.length() + ((header.length() - output.length())/2), ' ');
         String footer = "============================================================";
-        String fTests = Arrays.stream(failedTests).map(RunnableResult::toString).collect(Collectors.joining("\n"));
+        String fTests = Arrays.stream(failedTests).map(MemberResult::toString).collect(Collectors.joining("\n"));
         return "\n" + header + "\n" + result + "\n" + footer + "\n" + fTests;
     }
 }

@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Justin Graham <Justin.af.graham@gmail.com>
  * @since 1/9/2015
  */
-public class TestEZMethodTest {
+public class EZMethodTest {
     public void mockMethod() { /* Does Nothing! */ }
 
     EZMethod method;
@@ -17,13 +17,13 @@ public class TestEZMethodTest {
 //    @BeforeAll
 //    Helper initTestEZMethod = () -> method = new EZMethod(TestEZMethodTest.class.getMethod("mockMethod"));
 
-    Unit testConstructor = () -> method = new EZMethod(TestEZMethodTest.class.getMethod("mockMethod"));
+    Unit testConstructor = () -> method = new EZMethod(EZMethodTest.class.getMethod("mockMethod"));
 
     Unit testIsPublic = () -> assertThat(method.isPublic()).isTrue();
 
     Unit testIsTest = () -> assertThat(method.isTest()).isFalse();
 
-    Unit testRun = () -> method.run(new TestEZMethodTest());
+    Unit testRun = () -> method.run(new EZMethodTest());
 
     @Test(shouldThrow = NullPointerException.class)
     Unit testRunError = () -> method.run(null);

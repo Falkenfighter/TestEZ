@@ -2,8 +2,6 @@ package com.testez.internal.report;
 
 import com.google.common.base.Stopwatch;
 import com.testez.functions.Unit;
-import com.testez.internal.report.RunnableResult;
-import com.testez.internal.report.RunnableResultBuilder;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -21,38 +19,38 @@ public class RunnableResultBuilderTest {
     private final Class[] oneExpectedException = new Class[]{Exception.class};
     private Exception caughtException = null;
 
-    Unit testConstructor = () -> new RunnableResultBuilder(name, clazz, timer, caughtException, oneExpectedException);
+    Unit testConstructor = () -> new MemberResultBuilder(name, clazz, timer, caughtException, oneExpectedException);
 
     Unit expectedExceptionButNotThrown = () -> {
-        RunnableResult tr = new RunnableResultBuilder(name, clazz, timer, caughtException, oneExpectedException)
+        MemberResult tr = new MemberResultBuilder(name, clazz, timer, caughtException, oneExpectedException)
                 .getTestResult();
         assertThat(tr.isPassed()).isFalse();
         assertThat(tr.getCause()).contains("Missing expected exception[s]");
     };
 
     Unit expectedExceptionWasThrown = () -> {
-        RunnableResult tr = new RunnableResultBuilder(name, clazz, timer, new Exception(), oneExpectedException)
+        MemberResult tr = new MemberResultBuilder(name, clazz, timer, new Exception(), oneExpectedException)
                 .getTestResult();
         assertThat(tr.isPassed()).isTrue();
         assertThat(tr.getCause()).isNullOrEmpty();
     };
 
     Unit expectedExceptionButWrongOneThrown = () -> {
-        RunnableResult tr = new RunnableResultBuilder(name, clazz, timer, new RuntimeException(), oneExpectedException)
+        MemberResult tr = new MemberResultBuilder(name, clazz, timer, new RuntimeException(), oneExpectedException)
                 .getTestResult();
         assertThat(tr.isPassed()).isFalse();
         assertThat(tr.getCause()).contains("but expected one of");
     };
 
     Unit unexpectedException = () -> {
-        RunnableResult tr = new RunnableResultBuilder(name, clazz, timer, new RuntimeException(), zeroExpectedException)
+        MemberResult tr = new MemberResultBuilder(name, clazz, timer, new RuntimeException(), zeroExpectedException)
                 .getTestResult();
         assertThat(tr.isPassed()).isFalse();
         assertThat(tr.getCause()).contains("Threw exception");
     };
 
     Unit testPassed = () -> {
-        RunnableResult tr = new RunnableResultBuilder(name, clazz, timer, null, zeroExpectedException)
+        MemberResult tr = new MemberResultBuilder(name, clazz, timer, null, zeroExpectedException)
                 .getTestResult();
         assertThat(tr.isPassed()).isTrue();
     };

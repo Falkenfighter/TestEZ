@@ -1,7 +1,7 @@
 package com.testez.internal.method;
 
 import com.testez.internal.Before;
-import com.testez.internal.report.RunnableResult;
+import com.testez.internal.report.MemberResult;
 
 import java.lang.reflect.Method;
 
@@ -15,7 +15,7 @@ public class BeforeMethod extends Before {
     }
 
     @Override
-    public RunnableResult run(Object instance) {
+    public MemberResult run(Object instance) {
         return null;
     }
 }

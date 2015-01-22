@@ -9,7 +9,8 @@ import com.testez.internal.field.EZField;
 import com.testez.internal.method.AfterMethod;
 import com.testez.internal.method.BeforeMethod;
 import com.testez.internal.method.EZMethod;
-import com.testez.internal.report.RunnableResult;
+import com.testez.internal.report.ClassResult;
+import com.testez.internal.report.MemberResult;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;
@@ -48,19 +49,20 @@ public class EZClass {
         return tests.length > 0;
     }
 
-    public RunnableResult[] run() {
+    @NotNull
+    public ClassResult run() {
+        Object o;
         try {
-            Object o = clazz.newInstance();
-            return Arrays.stream(tests)
-                    .map(tm -> tm.run(o))
-                    .filter(Objects::nonNull)
-                    .toArray(RunnableResult[]::new);
+            o = clazz.newInstance();
         } catch (Exception e) {
-            // TODO: Handle exception
-            System.out.println("EZClass ERROR:");
             e.printStackTrace();
-            return null;
+            return new ClassResult(clazz, e);
         }
+
+        return new ClassResult(clazz, Arrays.stream(tests)
+                .map(tm -> tm.run(o))
+                .filter(Objects::nonNull)
+                .toArray(MemberResult[]::new));
     }
 
     @Override
