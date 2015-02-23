@@ -15,9 +15,9 @@ public class EZFieldTest {
         Unit failingTest = () -> { throw new Exception(); };
     }
 
-    EZField field;
+    TestField field;
 
-    Unit testConstructor = () -> field = new EZField(FakeClass.class.getDeclaredField("failingTest"));
+    Unit testConstructor = () -> field = new TestField(FakeClass.class.getDeclaredField("failingTest"));
 
     Unit testIsTest = () -> assertThat(field.isTest()).isTrue();
 

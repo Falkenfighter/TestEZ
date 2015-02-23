@@ -4,8 +4,8 @@ import com.beust.jcommander.JCommander;
 import com.testez.internal.clazz.EZClass;
 import com.testez.internal.exception.TestEZException;
 import com.testez.internal.report.ClassResult;
-import com.testez.internal.report.RunResult;
 import com.testez.internal.report.MemberResult;
+import com.testez.internal.report.RunResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

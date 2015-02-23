@@ -1,6 +1,6 @@
 package com.testez.internal.field;
 
-import com.testez.internal.Before;
+import com.testez.internal.RunnableBefore;
 import com.testez.internal.report.MemberResult;
 
 import java.lang.reflect.Field;
@@ -9,7 +9,7 @@ import java.lang.reflect.Field;
  * @author Justin Graham <Justin.af.graham@gmail.com>
  * @since 1/14/2015
  */
-public class BeforeField extends Before {
+public class BeforeField extends RunnableBefore {
     public BeforeField(Field field) {
         super(field);
     }

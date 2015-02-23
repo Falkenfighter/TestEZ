@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({METHOD, TYPE, FIELD, CONSTRUCTOR})
 public @interface Test {
     public String[] dependsOn() default {};
-    public boolean saveValue() default false;
+    public boolean saveReturn() default false;
 
     Class<? extends Throwable>[] shouldThrow() default {};
 }

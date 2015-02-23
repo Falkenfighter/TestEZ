@@ -12,12 +12,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class EZMethodTest {
     public void mockMethod() { /* Does Nothing! */ }
 
-    EZMethod method;
+    TestMethod method;
 
 //    @BeforeAll
 //    Helper initTestEZMethod = () -> method = new EZMethod(TestEZMethodTest.class.getMethod("mockMethod"));
 
-    Unit testConstructor = () -> method = new EZMethod(EZMethodTest.class.getMethod("mockMethod"));
+    Unit testConstructor = () -> method = new TestMethod(EZMethodTest.class.getMethod("mockMethod"));
 
     Unit testIsPublic = () -> assertThat(method.isPublic()).isTrue();
 

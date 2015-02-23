@@ -15,11 +15,11 @@ import java.lang.reflect.Field;
  * @author Justin Graham <Justin.af.graham@gmail.com>
  * @since 1/8/2015
  */
-public class EZField extends RunnableTest {
+public class TestField extends RunnableTest {
 
     @NotNull private final Field field;
 
-    public EZField(@NotNull Field field) {
+    public TestField(@NotNull Field field) {
         super(field);
         this.field = field;
         this.field.setAccessible(true);

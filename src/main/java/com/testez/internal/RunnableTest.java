@@ -11,7 +11,7 @@ import java.lang.reflect.AnnotatedElement;
  * @author Justin Graham <Justin.af.graham@gmail.com>
  * @since 1/8/2015
  */
-public abstract class RunnableTest implements RunnableInstance {
+public abstract class RunnableTest extends RunnableInstance {
     private final boolean isTest;
     private final Test testAnnotation;
 

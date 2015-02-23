@@ -111,17 +111,11 @@ public final class ClassHelper {
     }
 
     public static boolean isBeforeElement(@NotNull AnnotatedElement element) {
-        return (element.isAnnotationPresent(BeforeAll.class)
-                || element.isAnnotationPresent(BeforeEach.class)
-                || element.isAnnotationPresent(BeforeTests.class)) ||
-                isHelperElement(element);
+        return element.isAnnotationPresent(Before.class);
     }
 
     public static boolean isAfterElement(@NotNull AnnotatedElement element) {
-        return (element.isAnnotationPresent(AfterAll.class)
-                || element.isAnnotationPresent(AfterEach.class)
-                || element.isAnnotationPresent(AfterTests.class)) ||
-                isHelperElement(element);
+        return element.isAnnotationPresent(After.class);
     }
 
     /**

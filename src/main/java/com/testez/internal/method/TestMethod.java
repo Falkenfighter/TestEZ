@@ -14,7 +14,7 @@ import java.lang.reflect.Modifier;
  * @author Justin Graham <Justin.af.graham@gmail.com>
  * @since 1/7/2015
  */
-public class EZMethod extends RunnableTest {
+public class TestMethod extends RunnableTest {
     @NotNull private final Method method;
     @NotNull private final Class<?> clazz;
     @NotNull private final String name;
@@ -22,7 +22,7 @@ public class EZMethod extends RunnableTest {
     @NotNull private final Class<?>[] parameters;
     @NotNull private final Annotation[] annotations;
 
-    public EZMethod(@NotNull final Method method) {
+    public TestMethod(@NotNull final Method method) {
         super(method);
         this.method = method;
         this.clazz = method.getDeclaringClass();
