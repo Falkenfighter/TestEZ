@@ -5,7 +5,7 @@ package com.testez.internal;
  * @since 2/9/2015
  */
 public interface Configuration {
-    public boolean isAll();
+    public boolean isClass();
 
     public boolean isEach();
 }

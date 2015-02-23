@@ -16,8 +16,8 @@ public abstract class RunnableBefore extends RunnableInstance implements Configu
     }
 
     @Override
-    public boolean isAll() {
-        return annotation.value() == Invocation.ALL;
+    public boolean isClass() {
+        return annotation.value() == Invocation.CLASS;
     }
 
     @Override

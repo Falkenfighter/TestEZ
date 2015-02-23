@@ -67,7 +67,7 @@ public class EZClass {
         Queue<RunnableInstance> queue = new LinkedList<>();
 
         // Add all before all methods as first to run
-        queue.addAll(Arrays.stream(before).filter(RunnableBefore::isAll).collect(toList()));
+        queue.addAll(Arrays.stream(before).filter(RunnableBefore::isClass).collect(toList()));
 
         Arrays.stream(tests).forEach(t -> {
             // Add all before each methods before every test
@@ -79,7 +79,7 @@ public class EZClass {
         });
 
         // Add all after all methods as last to run
-        queue.addAll(Arrays.stream(after).filter(RunnableAfter::isAll).collect(toList()));
+        queue.addAll(Arrays.stream(after).filter(RunnableAfter::isClass).collect(toList()));
 
         return queue;
     }

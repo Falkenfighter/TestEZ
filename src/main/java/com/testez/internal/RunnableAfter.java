@@ -3,7 +3,6 @@ package com.testez.internal;
 import com.testez.annotations.After;
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 
 /**
@@ -19,8 +18,8 @@ public abstract class RunnableAfter extends RunnableInstance implements Configur
     }
 
     @Override
-    public boolean isAll() {
-        return annotation.value() == Invocation.ALL;
+    public boolean isClass() {
+        return annotation.value() == Invocation.CLASS;
     }
 
     @Override
