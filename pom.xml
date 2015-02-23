@@ -8,6 +8,18 @@
     <artifactId>TestEZ</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <name>TestEZ</name>
+    <description>Simple unit testing framework using lambda's</description>
+    <url>https://github.com/Falkenfighter/TestEZ</url>
+    <inceptionYear>2015</inceptionYear>
+    <developers>
+        <developer>
+            <name>Justin Graham</name>
+            <email>Justin.af.graham@gmail.com</email>
+            <url>https://falkenfighter.wordpress.com/</url>
+        </developer>
+    </developers>
+
     <properties>
         <log4j.version>2.1</log4j.version>
     </properties>
