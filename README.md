@@ -36,12 +36,13 @@ I have a lot more work to put into this but for a quick example of where this fr
 ### Annotations
 
 #### @Test
+Note: Most of the annotation functionality is still under active development! (2/23/2015)
 The test annotation has the following functions:
 1) dependsOn(); DependsOn takes a String[] of method, class, or package names which must complete before this test will execute.
 
     @Test(dependsOn = {"methodName", "className", "packageName"})
 
-2) saveReturn(); SaveReturn takes a Boolean and 
+2) saveReturn(); If saveReturn is 'true' the value will be stored for injection into later test.
 
 #### @Before
 
