@@ -9,7 +9,7 @@ I have a lot more work to put into this but for a quick example of where this fr
 
 ## Usage
 
-### Lambda Test
+### Unit (Lambda) Test
 
 
 // Single line test
@@ -26,7 +26,7 @@ I have a lot more work to put into this but for a quick example of where this fr
 
     Unit testName = Class::new;
 
-### Function Test
+### Functional/Integration (Function) Test
 
     @Test
     public void testName() {
@@ -47,3 +47,8 @@ The test annotation has the following functions:
 #### @Before
 
 #### @After
+
+### Running tests against the project
+
+To run the projects tests the target/test-classes directory must be on the classpath. Once this has been completed
+`com.testez.TestEZ.main()` can be ran using the `-package com.testez` argument.
